@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alegría</title>
     <link rel="shortcut icon" href="logo.png">
+
     <style>
         body {
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             background-color: #000;
             overflow: hidden;
             font-family: 'Arial', sans-serif;
@@ -19,28 +19,18 @@
 
         .ghost {
             position: absolute;
-            width: 70px;
-            height: 90px;
+            width: 70px; height: 90px;
             background-repeat: no-repeat;
             background-size: contain;
             filter: drop-shadow(0 0 15px rgba(242, 211, 188, 0.8));
-            transition: transform 0.3s;
             animation: float 3s infinite ease-in-out;
-            z-index: 5 !important;
-        }
-
-        /* ⬅️ Para que no se mueva ni repinte cuando muestra mensaje */
-        .ghost.freeze {
-            animation: none !important;
-            transition: none !important;
+            z-index: 1;
         }
 
         .ghost::before {
             content: "";
             position: absolute;
-            width: 100%;
-            height: 60%;
-            bottom: 0;
+            width: 100%; height: 60%; bottom: 0;
             background: radial-gradient(ellipse at center, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
             border-radius: 50% 50% 0 0;
         }
@@ -48,9 +38,7 @@
         .ghost::after {
             content: "";
             position: absolute;
-            width: 100%;
-            height: 30%;
-            bottom: -5%;
+            width: 100%; height: 30%; bottom: -5%;
             background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 30"><path fill="%23FFF" d="M0 0 C20 30, 30 10, 50 20 S80 5, 100 0 Z"/></svg>') repeat-x;
             background-size: 100px 30px;
             animation: wave 3s infinite linear;
@@ -58,27 +46,19 @@
 
         .ghost .face {
             position: absolute;
-            width: 100%;
-            height: 40%;
-            top: 30%;
-            left: 0;
-            z-index: 2;
+            width: 100%; height: 40%;
+            top: 30%; left: 0; z-index: 2;
         }
 
         .ghost .eyes {
             position: absolute;
-            width: 70%;
-            left: 20%;
-            top: -5%;
-            display: flex;
-            justify-content: space-between;
+            width: 70%; left: 20%; top: -5%;
+            display: flex; justify-content: space-between;
         }
 
         .ghost .eye {
-            width: 17px;
-            height: 20px;
-            background: #333;
-            border-radius: 50%;
+            width: 17px; height: 20px;
+            background: #333; border-radius: 50%;
             position: relative;
             animation: blink 4s infinite;
         }
@@ -86,48 +66,33 @@
         .ghost .eye::after {
             content: "";
             position: absolute;
-            width: 8px;
-            height: 8px;
-            background: white;
-            border-radius: 50%;
-            top: 5px;
-            left: 5px;
+            width: 8px; height: 8px;
+            background: white; border-radius: 50%;
+            top: 5px; left: 5px;
         }
 
         .ghost .mouth {
             position: absolute;
-            width: 30px;
-            height: 15px;
+            width: 30px; height: 15px;
             background: #333;
             border-radius: 0 0 30px 30px;
-            left: 35%;
-            top: 55%;
+            left: 35%; top: 55%;
             transition: all 0.3s;
-        }
-
-        .ghost:hover {
-            transform: scale(1.1);
-        }
-
-        .ghost:hover .mouth {
-            height: 20px;
-            border-radius: 0 0 40px 40px;
         }
 
         .message {
             position: absolute;
             color: white;
-            background-color: rgba(255, 105, 180, 0.9);
+            background-color: rgba(255, 105, 180, 0.92);
             padding: 10px 15px;
             border-radius: 15px;
             font-size: 14px;
             text-align: center;
-            min-width: 120px;
-            max-width: 180px;
+            min-width: 120px; max-width: 180px;
             display: none;
-            z-index: 99999 !important; /* ⬅️ Siempre arriba */
+            z-index: 999999 !important; /* SIEMPRE encima */
             text-shadow: 1px 1px 2px #000;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
             bottom: 100%;
             left: 50%;
             transform: translateX(-50%);
@@ -139,13 +104,13 @@
             font-size: 28px;
             animation: fly 1.5s forwards;
             opacity: 0;
-            z-index: 20;
+            z-index: 5;
             pointer-events: none;
-            filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.7));
+            filter: drop-shadow(0 0 5px rgba(255,0,0,0.7));
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(-2deg); }
+            0%,100% { transform: translateY(0) rotate(-2deg); }
             25% { transform: translateY(-15px) rotate(2deg); }
             50% { transform: translateY(-25px) rotate(-2deg); }
             75% { transform: translateY(-15px) rotate(2deg); }
@@ -157,13 +122,13 @@
         }
 
         @keyframes blink {
-            0%, 48%, 52%, 100% { height: 25px; }
+            0%,48%,52%,100% { height: 25px; }
             50% { height: 5px; }
         }
 
         @keyframes fly {
-            0% { transform: translate(0, 0) scale(1); opacity: 1; }
-            100% { transform: translate(var(--tx), var(--ty)) scale(0.5); opacity: 0; }
+            0% { transform: translate(0,0) scale(1); opacity: 1; }
+            100% { transform: translate(var(--tx),var(--ty)) scale(0.5); opacity: 0; }
         }
 
         @keyframes pulse {
@@ -173,199 +138,153 @@
         }
 
         .title {
-            position: fixed;
-            top: 20px;
-            left: 0;
-            right: 0;
-            text-align: center;
-            color: white;
+            position: fixed; top: 20px; left: 0; right: 0;
+            text-align: center; color: white;
             font-size: 24px;
             text-shadow: 0 0 10px #ff69b4;
-            z-index: 1;
-            animation: glow 2s infinite alternate;
-        }
-
-        @keyframes glow {
-            from { text-shadow: 0 0 10px #ff69b4; }
-            to { text-shadow: 0 0 20px #ff69b4, 0 0 30px #ff1493; }
         }
 
         .instructions {
-            position: fixed;
-            bottom: 20px;
-            left: 0;
-            right: 0;
-            text-align: center;
-            color: rgba(255, 255, 255, 0.7);
+            position: fixed; bottom: 20px; left: 0; right: 0;
+            text-align: center; color: rgba(255,255,255,0.7);
             font-size: 16px;
-            z-index: 1;
         }
     </style>
 </head>
+
 <body>
-    <div class="title">Quiero verte sonreír preciosa!</div>
-    <div class="instructions">Toca en los fantasmas para recibir mensajitos</div>
-    <div id="gameArea"></div>
 
-    <script>
-        const romanticPhrases = [
-            "Siempre extrañándote",
-            "Mi corazón siempre te necesita",
-            "Nunca olvides que te quiero",
-            "Tu sonrisa es mi lugar favorito",
-            "Mi cora se alegra con un msj tuyo",
-            "Sos mi luz en los días oscuros",
-            "Amo tus mordidas",
-            "Sos mi complemento perfecto",
-            "Gracias por nunca dejar de intentarlo"
-        ];
+<div class="title">Quiero verte sonreír preciosa!</div>
+<div class="instructions">Toca en los fantasmas para recibir mensajitos</div>
+<div id="gameArea"></div>
 
-        const ghostColors = ["rgba(255, 235, 240, 0.9)", "rgba(255, 240, 245, 0.9)", "rgba(255, 245, 250, 0.9)"];
+<script>
 
-        function createGhost() {
-            const ghost = document.createElement('div');
-            ghost.className = 'ghost';
+let romanticPhrases = [
+    "Siempre extrañándote",
+    "Mi corazón siempre te necesita",
+    "Nunca olvides que te quiero",
+    "Tu sonrisa es mi lugar favorito",
+    "Mi cora se alegra con un msj tuyo",
+    "Sos mi luz en los días oscuros",
+    "Amo tus mordidas",
+    "Sos mi complemento perfecto",
+    "Gracias por nunca dejar de intentarlo",
+    "Sos lo más lindo que tengo"
+];
 
-            const x = Math.random() * (window.innerWidth - 100);
-            const y = Math.random() * (window.innerHeight - 120);
+// Frase ÚNICA (no repetida)
+function getUniquePhrase() {
+    if (romanticPhrases.length === 0) return "";
+    const index = Math.floor(Math.random() * romanticPhrases.length);
+    return romanticPhrases.splice(index, 1)[0];
+}
 
-            ghost.style.left = `${x}px`;
-            ghost.style.top = `${y}px`;
+const ghostColors = [
+    "rgba(255, 235, 240, 0.9)",
+    "rgba(255, 240, 245, 0.9)",
+    "rgba(255, 245, 250, 0.9)"
+];
 
-            const color = ghostColors[Math.floor(Math.random() * ghostColors.length)];
-            ghost.style.backgroundColor = color;
+function createGhost() {
 
-            const duration = 2 + Math.random() * 4;
-            ghost.style.animationDuration = `${duration}s`;
+    const ghost = document.createElement('div');
+    ghost.className = 'ghost';
 
-            const face = document.createElement('div');
-            face.className = 'face';
+    const x = Math.random() * (window.innerWidth - 100);
+    const y = Math.random() * (window.innerHeight - 120);
 
-            const eyes = document.createElement('div');
-            eyes.className = 'eyes';
+    ghost.style.left = `${x}px`;
+    ghost.style.top = `${y}px`;
 
-            const leftEye = document.createElement('div');
-            leftEye.className = 'eye';
+    ghost.style.backgroundColor = ghostColors[Math.floor(Math.random() * ghostColors.length)];
+    ghost.style.animationDuration = `${2 + Math.random() * 4}s`;
 
-            const rightEye = document.createElement('div');
-            rightEye.className = 'eye';
+    // CARA
+    const face = document.createElement('div');
+    face.className = 'face';
 
-            const mouth = document.createElement('div');
-            mouth.className = 'mouth';
+    const eyes = document.createElement('div');
+    eyes.className = 'eyes';
 
-            eyes.appendChild(leftEye);
-            eyes.appendChild(rightEye);
-            face.appendChild(eyes);
-            face.appendChild(mouth);
-            ghost.appendChild(face);
+    const leftEye = document.createElement('div');
+    leftEye.className = 'eye';
 
-            const message = document.createElement('div');
-            message.className = 'message';
-            const phrase = romanticPhrases[Math.floor(Math.random() * romanticPhrases.length)];
-            message.textContent = phrase;
+    const rightEye = document.createElement('div');
+    rightEye.className = 'eye';
 
-            ghost.appendChild(message);
+    const mouth = document.createElement('div');
+    mouth.className = 'mouth';
 
-            ghost.addEventListener('click', function (e) {
-                e.stopPropagation();
+    eyes.appendChild(leftEye);
+    eyes.appendChild(rightEye);
+    face.appendChild(eyes);
+    face.appendChild(mouth);
+    ghost.appendChild(face);
 
-                ghost.classList.add('freeze'); // ⬅️ FANTASMA CONGELADO
+    // MENSAJE ÚNICO
+    const message = document.createElement('div');
+    message.className = 'message';
+    message.textContent = getUniquePhrase();
+    ghost.appendChild(message);
 
-                message.style.display = 'block';
+    ghost.addEventListener('click', function (e) {
+        e.stopPropagation();
 
-                // Si está muy arriba, mostrar el mensaje abajo
-                const rect = ghost.getBoundingClientRect();
-                if (rect.top < 120) {
-                    message.style.bottom = "auto";
-                    message.style.top = "100%";
-                } else {
-                    message.style.top = "auto";
-                    message.style.bottom = "100%";
-                }
+        // Boca animada
+        mouth.style.height = "10px";
+        mouth.style.borderRadius = "50%";
+        setTimeout(() => {
+            mouth.style.height = "15px";
+            mouth.style.borderRadius = "0 0 30px 30px";
+        }, 300);
 
-                createKiss(e.clientX, e.clientY);
+        // Mostrar mensaje
+        message.style.display = 'block';
 
-                setTimeout(() => {
-                    message.style.display = 'none';
-                    ghost.classList.remove('freeze'); // ⬅️ DESCONGELA
-                    moveGhost(ghost);
-                }, 3000);
-            });
+        // BAJAR fantasma para NO TAPAR mensaje (celular)
+        ghost.style.transform = "translateY(25px)";
+        setTimeout(() => ghost.style.transform = "none", 3000);
 
-            document.getElementById('gameArea').appendChild(ghost);
+        // Besito
+        createKiss(e.clientX, e.clientY);
 
-            const moveInterval = setInterval(() => moveGhost(ghost), 8000);
+        // Ocultar mensaje luego
+        setTimeout(() => message.style.display = 'none', 3000);
 
-            ghost.dataset.interval = moveInterval;
-        }
+    });
 
-        function moveGhost(ghost) {
-            if (ghost.classList.contains('freeze')) return;
+    document.getElementById('gameArea').appendChild(ghost);
+}
 
-            const x = Math.random() * (window.innerWidth - 100);
-            const y = Math.random() * (window.innerHeight - 120);
 
-            ghost.style.transition = 'all 3s ease-in-out';
-            ghost.style.left = `${x}px`;
-            ghost.style.top = `${y}px`;
+function createKiss(x, y) {
+    const kiss = document.createElement('div');
+    kiss.className = 'kiss';
+    kiss.textContent = '💋';
+    kiss.style.left = `${x}px`;
+    kiss.style.top = `${y}px`;
 
-            setTimeout(() => {
-                ghost.style.transition = 'none';
-            }, 3000);
-        }
+    const angle = Math.random() * Math.PI * 2;
+    const distance = 50 + Math.random() * 150;
 
-        function createKiss(x, y) {
-            const kiss = document.createElement('div');
-            kiss.className = 'kiss';
-            kiss.textContent = '💋';
-            kiss.style.left = `${x}px`;
-            kiss.style.top = `${y}px`;
+    kiss.style.setProperty('--tx', `${Math.cos(angle) * distance}px`);
+    kiss.style.setProperty('--ty', `${Math.sin(angle) * distance}px`);
 
-            const angle = Math.random() * Math.PI * 2;
-            const distance = 50 + Math.random() * 150;
-            const tx = Math.cos(angle) * distance;
-            const ty = Math.sin(angle) * distance;
+    document.getElementById('gameArea').appendChild(kiss);
+    setTimeout(() => kiss.remove(), 1500);
+}
 
-            kiss.style.setProperty('--tx', `${tx}px`);
-            kiss.style.setProperty('--ty', `${ty}px`);
+function initGame() {
+    const count = 10;
+    for (let i = 0; i < count; i++) {
+        setTimeout(() => createGhost(), i * 600);
+    }
+}
 
-            document.getElementById('gameArea').appendChild(kiss);
+window.addEventListener('load', initGame);
 
-            setTimeout(() => {
-                kiss.remove();
-            }, 1500);
-        }
+</script>
 
-        window.addEventListener('resize', function () {
-            const area = document.getElementById('gameArea');
-            const maxW = area.clientWidth;
-            const maxH = area.clientHeight;
-
-            const ghosts = document.querySelectorAll('.ghost');
-            ghosts.forEach(ghost => {
-                const currentX = parseFloat(ghost.style.left);
-                const currentY = parseFloat(ghost.style.top);
-
-                ghost.style.left = `${Math.min(currentX, maxW - 80)}px`;
-                ghost.style.top = `${Math.min(currentY, maxH - 80)}px`;
-            });
-        });
-
-        function initGame() {
-            const ghostCount = 10;
-
-            for (let i = 0; i < ghostCount; i++) {
-                setTimeout(() => createGhost(), i * 2000);
-            }
-        }
-
-        document.addEventListener('click', function (e) {
-            if (e.target.id === 'gameArea') {
-                createGhost();
-            }
-        });
-
-        window.addEventListener('load', initGame);
-    </script>
 </body>
 </html>
