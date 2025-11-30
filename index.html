@@ -18,11 +18,11 @@
         
         .ghost {
             position: absolute;
-            width: 100px;
-            height: 120px;
+            width: 70px;
+            height: 90px;
             background-repeat: no-repeat;
             background-size: contain;
-            filter: drop-shadow(0 0 15px rgba(255, 182, 193, 0.8));
+            filter: drop-shadow(0 0 15px rgba(242, 211, 188, 0.8));
             transition: transform 0.3s;
             animation: float 3s infinite ease-in-out;
             z-index: 1;
@@ -60,16 +60,16 @@
         
         .ghost .eyes {
             position: absolute;
-            width: 60%;
+            width: 70%;
             left: 20%;
-            top: 15%;
+            top: -5%;
             display: flex;
             justify-content: space-between;
         }
         
         .ghost .eye {
-            width: 20px;
-            height: 25px;
+            width: 17px;
+            height: 20px;
             background: #333;
             border-radius: 50%;
             position: relative;
@@ -242,7 +242,7 @@
             ghost.style.backgroundColor = color;
             
             // Tiempo de animación aleatorio
-            const duration = 2 + Math.random() * 3;
+            const duration = 2 + Math.random() * 4;
             ghost.style.animationDuration = `${duration}s`;
             
             // Crear cara
@@ -346,37 +346,41 @@
         }
         
         // Ajustar tamaño al cambiar ventana
-        window.addEventListener('resize', function() {
-            const ghosts = document.querySelectorAll('.ghost');
-            ghosts.forEach(ghost => {
-                const currentX = parseFloat(ghost.style.left);
-                const currentY = parseFloat(ghost.style.top);
-                
-                // Asegurar que no queden fuera de la pantalla
-                ghost.style.left = `${Math.min(currentX, window.innerWidth - 100)}px`;
-                ghost.style.top = `${Math.min(currentY, window.innerHeight - 120)}px`;
-            });
-        });
-        
-        // Crear fantasmas iniciales
-        function initGame() {
-            const ghostCount = Math.min(8, Math.floor(window.innerWidth / 120));
-            for (let i = 0; i < ghostCount; i++) {
-                setTimeout(() => createGhost(), i * 800);
-            }
-        }
-        
-        // Crear nuevo fantasma al hacer clic en pantalla
-        document.addEventListener('click', function(e) {
-            if (e.target === document.body || e.target.id === 'gameArea') {
-                if (Math.random() > 0.5) { // 50% de probabilidad de crear nuevo fantasma
-                    createGhost();
-                }
-            }
-        });
-        
-        // Iniciar juego cuando se carga la página
-        window.addEventListener('load', initGame);
-    </script>
+window.addEventListener('resize', function () {
+    const area = document.getElementById('gameArea');
+    const maxW = area.clientWidth;
+    const maxH = area.clientHeight;
+
+    const ghosts = document.querySelectorAll('.ghost');
+    ghosts.forEach(ghost => {
+        const currentX = parseFloat(ghost.style.left);
+        const currentY = parseFloat(ghost.style.top);
+
+        // Mantener dentro del contenedor
+        ghost.style.left = `${Math.min(currentX, maxW - 80)}px`;
+        ghost.style.top = `${Math.min(currentY, maxH - 80)}px`;
+    });
+});
+
+// Crear fantasmas iniciales
+function initGame() {
+    // Cantidad fija y asegurada (cambiá el número si querés)
+    const ghostCount = 20;  
+
+    for (let i = 0; i < ghostCount; i++) {
+        setTimeout(() => createGhost(), i * 400);
+    }
+}
+
+// Crear nuevo fantasma al hacer clic
+document.addEventListener('click', function (e) {
+    if (e.target.id === 'gameArea') {
+        createGhost();
+    }
+});
+
+// Iniciar juego
+window.addEventListener('load', initGame);
+</script>
 </body>
 </html>
