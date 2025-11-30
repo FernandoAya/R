@@ -273,9 +273,7 @@
             
             ghost.addEventListener('click', function(e) {
                 e.stopPropagation();
-                message.style.left = `${x - 20}px`;
-            message.style.top = `${y - 80}px`;
-            message.style.display = 'block';
+                
                 
                 // Animación de boca al besar
                 mouth.style.height = "10px";
@@ -286,6 +284,8 @@
                 }, 300);
                 
                 // Mostrar mensaje
+                message.style.left = `${x - 20}px`;
+                message.style.top = `${y - 80}px`;
                 message.style.display = 'block';
                 
                 // Crear beso
