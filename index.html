@@ -25,6 +25,7 @@
             filter: drop-shadow(0 0 15px rgba(242, 211, 188, 0.8));
             animation: float 3s infinite ease-in-out;
             z-index: 1;
+            transition: transform .3s;
         }
 
         .ghost::before {
@@ -90,13 +91,14 @@
             text-align: center;
             min-width: 120px; max-width: 180px;
             display: none;
-            z-index: 999999 !important; /* SIEMPRE encima */
+            z-index: 999999 !important;
             text-shadow: 1px 1px 2px #000;
             box-shadow: 0 0 10px rgba(0,0,0,0.5);
             bottom: 100%;
             left: 50%;
             transform: translateX(-50%);
             animation: pulse 2s infinite;
+            pointer-events: none;
         }
 
         .kiss {
@@ -173,7 +175,6 @@ let romanticPhrases = [
     "Sos lo más lindo que tengo"
 ];
 
-// Frase ÚNICA (no repetida)
 function getUniquePhrase() {
     if (romanticPhrases.length === 0) return "";
     const index = Math.floor(Math.random() * romanticPhrases.length);
@@ -185,6 +186,36 @@ const ghostColors = [
     "rgba(255, 240, 245, 0.9)",
     "rgba(255, 245, 250, 0.9)"
 ];
+
+// 🔥🔥 NUEVO: Ajusta el mensaje para que NO se salga de la pantalla
+function adjustMessagePosition(message, ghost) {
+    const rect = message.getBoundingClientRect();
+
+    let offsetX = 0;
+    let offsetY = 0;
+
+    // Correcciones horizontales
+    if (rect.left < 5) offsetX = 5 - rect.left;
+    if (rect.right > window.innerWidth - 5) offsetX = (window.innerWidth - 5) - rect.right;
+
+    // Correcciones verticales
+    if (rect.top < 5) {
+        // Si arriba no hay espacio → ponerlo abajo
+        message.style.bottom = "auto";
+        message.style.top = "100%";
+    }
+
+    if (rect.bottom > window.innerHeight - 5) {
+        // Si abajo no hay espacio → ponerlo arriba
+        message.style.top = "auto";
+        message.style.bottom = "100%";
+    }
+
+    // Aplicar corrección horizontal
+    if (offsetX !== 0) {
+        message.style.left = `calc(50% + ${offsetX}px)`;
+    }
+}
 
 function createGhost() {
 
@@ -242,9 +273,12 @@ function createGhost() {
         // Mostrar mensaje
         message.style.display = 'block';
 
-        // BAJAR fantasma para NO TAPAR mensaje (celular)
+        // Mover fantasma un poco para NO TAPAR mensaje
         ghost.style.transform = "translateY(25px)";
         setTimeout(() => ghost.style.transform = "none", 3000);
+
+        // Ajustar posición para NO SALIR DEL CELULAR
+        setTimeout(() => adjustMessagePosition(message, ghost), 50);
 
         // Besito
         createKiss(e.clientX, e.clientY);
@@ -256,7 +290,6 @@ function createGhost() {
 
     document.getElementById('gameArea').appendChild(ghost);
 }
-
 
 function createKiss(x, y) {
     const kiss = document.createElement('div');
