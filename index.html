@@ -206,17 +206,16 @@
             "Siempre extrañándote",
             "Mi corazón siempre te necesita",
             "En un mar de gente, mi mirada te busca siempre",
-            "Eres la razón por la que creo en el amor",
+            "Sos la razón por la que creo en el amor",
             "Nunca olvides que te quiero",
             "Tu sonrisa es mi lugar favorito",
-            "Eres mi hoy y todos mis mañanas",
             "Eres mi persona favorita en todo el mundo",
             "Cada día a tu lado es un regalo del universo",
-            "Tu amor es la melodía que alegra mi corazón",
-            "Eres mi luz en los días oscuros",
+            "Mi cora se alegra con un msj tuyo",
+            "Sos mi luz en los días oscuros",
             "Amo tus mordidas",
             "Tu amor es mi mayor tesoro",
-            "Eres mi complemento perfecto",
+            "Sos mi complemento perfecto",
             "Gracias por nunca dejar de intentarlo"
         ];
         
@@ -264,11 +263,14 @@
             ghost.appendChild(face);
             
             // Crear mensaje
+            
             const message = document.createElement('div');
             message.className = 'message';
             const phrase = romanticPhrases[Math.floor(Math.random() * romanticPhrases.length)];
             message.textContent = phrase;
-            
+            message.style.left = `${x - 20}px`;
+            message.style.top = `${y - 80}px`;
+            message.style.display = 'block';
             ghost.appendChild(message);
             
             ghost.addEventListener('click', function(e) {
@@ -361,7 +363,7 @@ window.addEventListener('resize', function () {
 // Crear fantasmas iniciales
 function initGame() {
     // Cantidad fija y asegurada (cambiá el número si querés)
-    const ghostCount = 15;  
+    const ghostCount = 14;  
 
     for (let i = 0; i < ghostCount; i++) {
         setTimeout(() => createGhost(), i * 400);
